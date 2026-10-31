@@ -1,0 +1,26 @@
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%----------------------------------------------------------------------------------------
+
+% Only the used entries will be displayed in the printed list, ie, you need to used a term at least once
+% In italic if not in the main document language
+
+% terms definition usage:
+% \newglossaryentry{<tag>}{name={<term>},description={<description of the term>}}
+
+\newglossaryentry{gloss}{
+name={glossário}, 
+description={é uma lista alfabética de termos de um determinado domínio de conhecimento com a definição desses mesmos termos.},
+}
+
+\newglossaryentry{pack}{
+name={\textit{package}}, 
+description={é um ficheiro ou conjunto de ficheiros que contêm comandos \LaTeX{} extra que adicionam novas funcionalidades de estilo ou modificam aquelas já existentes.},
+sort={package}	%needed for sorting when using LaTeX commands in the 'name' field
+}
+
+\newglossaryentry{lipsum}{
+name={\textit{Lorem Ipsum}}, 
+description={é uma sequência de palavras, geralmente latinas, utilizada para preencher o espaço destinado a texto numa publicação, por forma a testar as opções de formatação e edição e o arranjo dos elementos gráficos antes da inserção do conteúdo.},
+sort={Lorem Ipsum}
+}

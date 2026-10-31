@@ -1,0 +1,141 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% Document class for MEEC@DEE@ISEP dissertations, by Vitor M. R. Cunha - v1.3, Jul 2021
+% Suggestions and comments are welcomed (vrc at isep dot ipp dot pt).
+%
+% Template provided as is, NO SUPPORT will be given.
+% NO questions related to LaTeX will be answered, go to
+% https://ftp.eq.uc.pt/software/TeX/info/lshort/english/lshort.pdf, or search the web.
+%
+% The DEE document class uses the LaTeX book base class, the original work credits are
+% in the document class file.
+%
+% Overleaf template direct link:
+% https://www.overleaf.com/latex/templates/isep-meec-msc-thesis-slash-dissertation-latex-template/zdyypsqypqnm
+% or go to https://www.overleaf.com/gallery/, and search for: ISEP MEEC
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MAIN SETTINGS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+MEECAS,			% Use this option to select your DEE degree, options: MEECAS, MEECSA, MEECPI, MEECTE
+portuguese,		% Select document language, options: portuguese or english
+%draft,			% Uncomment for draft mode (no pictures, no links, overfull hboxes) 
+]{DEEclass}
+
+% Use the 'preamble.tex' file (root folder) do add packages and macros. Keep your main.tex file clean.
+\include{preamble}		 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DISSERTATION INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thesistitle{JavaFX} % Your dissertation title
+
+\subdate{Novembro, 2026} % Uncomment for a static submission date, or leave it as a comment for automatic date 
+
+\author{Eduardo Miguel Moreira Junqueira}	% Your name
+\studentnumber{1251561}	% Your student number
+\studentemail{1251561@isep.ipp.pt}	% Your student email address  
+
+\advisor{Benedita Malheiro}{mbm@isep.ipp.pt}	% Your advisor's name and email
+%\coadvisor{Nome do Coorientador}{xxx@isep.ipp.pt}	% Your co-advisor's name and email, comment this line if not needed
+%\company{Nome da Empresa, Lda.}	% The company name where you developed your work, comment this line if not needed
+%\supervisor{Nome do Orientador da Empresa}{xxx@emailaddress.com}	% Your supervisor's name, comment this line if not needed
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% USER DEFINED LISTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeglossaries						% Consider the following files in the 'front' folder:
+\input{front/0_glossary}			% Edit to define your glossary entries list
+\input{front/0_acronyms}			% Edit to define your acronyms entries list
+\input{front/0_symbols}				% Edit to define your symbols entries list
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\frontmatter
+\include{front/title}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRONTMATTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Consider the following front matter sections provided as separate files in the 'front' folder.
+% Comment the lines regarding the sections you will not use, or edit the file contents as needed
+
+%\include{front/1_dedicatory}		% Edit if you want to dedicate your work to someone, or comment this line if not used
+%\include{front/2_acknowledgements}	% Edit to add the due acknowledgements, or comment this line if not used
+\include{front/3_abstract}			% Edit the file to write the dissertation Abstract. Two languages are always required.
+\include{front/4_frontmatterlists}	% Edit the file to select the lists to be shown (figures, tables, source code segments, glossary, acronyms, symbols)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MAINMATTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter 
+\pagestyle{thesis} 				
+
+% Include the chapters of the dissertation as separate files from the 'chapters' folder
+
+\begin{comment}
+
+Resumo
+Abstract
+Glossário
+Introdução
+	Contextualização
+	Objetivos
+	Planeamento
+	Organização do Documento
+Problema
+	Definição
+	Requisitos
+		Funcionais (Atores, Caso de Uso)
+		Técnicos (Latência, carga, etc.)
+	Sumário
+Solução (Conceção e Implementação)
+	Ferramentas e Tecnologias
+	Arquitetura
+	Modelo de Dados
+	Front-end
+	Back-end
+	Sumário
+Testes e Avaliação
+	Funcionais
+	Desempenho (volume de dados e latência por caso de uso e impacto da carga no caso maior latência)
+	Usabilidade
+	Discussão 
+	Sumário
+Conclusão
+	Sumário dos Resultados
+	Limitações
+	Desenvolvimento Futuro	
+Bibliografia
+
+Aula 21/10/2026 prática de RINTE dados:
+\begin{itemize}
+
+\item procurar sempre em: https://ctan.org/pkg/siunitx 
+\item no caso de siunitx https://ftp.eq.uc.pt/software/TeX/macros/latex/contrib/siunitx/siunitx.pdf 
+\item Escrever sempre em 3 pessoa.
+\item Frases Ativas.
+\item Figuras no inicío ou fim da página não no final em anexos.
+\item Escrever sempre em itálicos tudo o que não está no dicionário com exceção de nomes próprios de empresas ou produtos .
+\end{itemize}
+\unit{\kilogram\metre\per\second}
+
+\SI{156000}{\eurocurrency}
+\SI{150000}{\milli\gram}
+
+\end{comment}
+\include{chapters/chapter1}%Introdução
+\include{chapters/chapter2}%Problema	
+%\include{chapters/chapter3}	% Uncomment the lines as you write the chapters,
+								% where 'chapter3' refers to a file chapter3.tex
+%...							% in the 'chapters' folder
+								
+%\include{chapters/chapter6}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Print the bibliographic references using the ieeetr format from the 'sampleRefs.bib' file (root folder)
+
+\printrefereces{sampleRefs}		% Change the 'sampleRefs' name to match your .bib file name,
+								% a good option to make bib files is https://www.jabref.org/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{appendices}
+% Include the appendices of the dissertation as separate files from the 'chapters' folder
+
+\include{chapters/appendixA}	% Uncomment the lines as you write the appendices,
+%\include{chapters/appendixB}	% or comment the lines if not used
+
+\end{appendices}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}  

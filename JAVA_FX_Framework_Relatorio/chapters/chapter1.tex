@@ -1,0 +1,116 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter INTRODUÇÃO
+
+\chapter{Introdução} 	% Main chapter title
+\label{Chapter1} 		% For referencing the chapter elsewhere, usage \ref{Chapter1}
+
+A este capítulo introdutório  a contextualização e organização do documento descrevem o relatório de uma forma geral, enquanto que os objetivos e o planeamento demonstram mais ao pormenor o estudo e a análise que foi  feito ao longo deste relatório.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Contextualização
+
+\section{Contextualização}
+\label{sec:Ch1.1}
+
+\noindent No âmbito da \ac{uc} de \ac{rinte},  será realizado o trabalho nº1, sobre uma tecnologia de suporte ao desenvolvimento de aplicações.~A elaboração deste  relatório técnico-científico é sobre a tecnologia \textit{JavaFX Framework}.~A entrega deste relatório será acompanhada também por código e apresentação exclusivamente para esta \ac{uc} de \ac{rinte} da autoria própria do aluno, que realizou o trabalho, Eduardo Miguel Moreira Junqueira.
+
+\noindent \textit{JavaFX}, uma plataforma de software criada por Sun Microsystems em 2008. Em 2011 tornou-se \textit{open-source} e no ano seguinte migrou para Oracle Corporation's \ac{jdk}. Em 2018 Oracle Corporation's, decidiu não agregar mais esta tecnologia e então formou-se a comunidade representante atualmente com a parceria da GLUON, nomeada de \textit{OpenJFX}\cite{Pereira2020},\cite{OpenJFX}.%JavaFX. (n.d.). Community OpenJFX. Retrieved October 29, 2026, from https://openjfx.io/
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Objetivos
+
+\section{Objetivos}
+\label{sec:Ch1.2}
+ %apresentar de forma clara os objetivos que se propõe atingir
+\noindent O objetivo principal deste trabalho prático é estudar e  implementar a tecnologia \textit{JavaFX Framework} de suporte ao desenvolvimento de aplicações distribuídas.
+
+\noindent Esta aplicação distribuída, que será criada como exemplo demonstrativo da tecnologia em estudo, tem como âmbito seguir uma arquitetura de três camadas, ou seja, \textbf{I-} cliente gráfico em \textit{JavaFX},  \textbf{II-} servidor em \textit{Tomcat},  \textbf{III-} base de dados em \textit{MySQL}.
+
+\noindent Inicialmente será realizado um teste de implementação em conjunto com a pesquisa, para verificar a tecnologia a funcionar com as devidas bibliotecas necessárias.
+
+\noindent De seguida, será implementado um projeto nomeado "Gestão de Tarefas",~com dois tipos de clientes, o administrador e o utilizador.
+
+\begin {enumerate}
+\item Administrador:~usa métodos \ac{http} do tipo \textit{GET,POST,PUT,DELETE}  para controlar todas as tarefas.
+Também usa métodos \ac{http} do tipo \textit{GET,POST,DELETE} para controlar todos os utilizadores.
+\item Utilizador:~usa métodos \ac{http} do tipo \textit{GET,POST,PUT}  para controlar apenas as suas tarefas.
+\end {enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Planeamento
+
+\section{Planeamento}
+\label{sec:Ch1.3}
+
+A tabela seguinte \ref{tab:cronograma}, demonstra as principais tarefas que foram realizadas de forma autónoma, ao longo de 5 semanas, após a atribuição da tecnologia em estudo.
+% Cores próximas das usadas no Excel
+\definecolor{fundo}{HTML}{C9C9C9}
+\definecolor{pesquisa}{HTML}{AA55A0}
+\definecolor{relatorio}{HTML}{32A34A}
+\definecolor{implementacao}{HTML}{1084A7}
+\definecolor{validacao}{HTML}{B75A28}
+
+% Célula ativa: recebe uma cor e apresenta o valor 1
+\newcommand{\ativo}[1]{\cellcolor{#1}1}
+
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \setlength{\tabcolsep}{8pt}
+
+\begin{tabular}{|>{\columncolor{fundo}}l|*{5}{>{\columncolor{fundo}}c|}}
+        \hline
+        Tarefas
+        & 28/9 a 4/10
+        & 5/10 a 11/10
+        & 12/10 a 18/10
+        & 19/10 a 25/10
+        & 26/10 a 1/11 \\
+        \hline
+
+        Pesquisa
+        & \ativo{pesquisa}
+        & \ativo{pesquisa}
+        & \ativo{pesquisa}
+        & \ativo{pesquisa}
+        & \ativo{pesquisa} \\
+        \hline
+
+        Relatório
+        & 0
+        & 0
+        & 0
+        & \ativo{relatorio}
+        & \ativo{relatorio} \\
+        \hline
+
+        Implementação
+        & 0
+        & 0
+        & \ativo{implementacao}
+        & \ativo{implementacao}
+        & \ativo{implementacao} \\
+        \hline
+
+        Validação
+        & 0
+        & 0
+        & 0
+        & 0
+        & \ativo{validacao} \\
+        \hline
+    \end{tabular}
+
+    \caption{Cronograma das tarefas.}
+    \label{tab:cronograma}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECTION 5
+
+\section{Organização do Documento}
+\label{sec:Ch1.4}
+
+\noindent Nos seguintes capítulos, o problema contém a definição e os requisitos quer funcionais, quer técnicos. A solução explicita as ferramentas e tecnologias utilizadas, identificando a arquitetura, os modelo de dados, \textit{front-end, back-end}. Os testes e avaliação demonstram as funcionais o desempenho e também a usabilidade. A conclusão retrata o sumário dos resultados com as devidas limitações e o desenvolvimento futuro do trabalho nº2.	
+
+
+
+
