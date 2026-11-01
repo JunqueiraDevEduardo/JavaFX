@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestão de tarefas</title>
+<!--
+  index.html  -  página web de testes da API (alternativa ao cliente JavaFX)
+
+  Mostra o mesmo que a aplicação JavaFX: login, tabela de tarefas e, para o
+  administrador, a lista de utilizadores. Usa os quatro métodos HTTP:
+    GET     ler tarefas e utilizadores
+    POST    criar tarefas e utilizadores (e login/logout)
+    PUT     alterar uma tarefa (título e estado)
+    DELETE  apagar uma tarefa (só o administrador)
+
+  Esta página fica na mesma pasta que a WEB-INF, e abre-se em
+  http://localhost:8088/tarefas/
+-->
+<style>
+*{box-sizing:border-box}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#f3f4f6;margin:0;color:#222}
+header{background:#2f4f6f;color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+header h1{font-size:20px;margin:0;font-weight:600}
+#quem{display:flex;gap:12px;align-items:center;font-size:14px}
+main{max-width:860px;margin:24px auto;padding:0 16px}
+.cartao{background:#fff;border-radius:8px;padding:20px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.cartao h2{margin:0 0 14px;font-size:17px}
+input,select{padding:8px 10px;border:1px solid #c5c9d0;border-radius:5px;font-size:14px}
+button{padding:8px 14px;border:0;border-radius:5px;background:#2f6fa8;color:#fff;font-size:14px;cursor:pointer}
+button:hover{background:#255a89}
+button.perigo{background:#b94a48}
+button.perigo:hover{background:#9c3a38}
+button.claro{background:#e4e7eb;color:#222}
+button.claro:hover{background:#d3d7dc}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid #e5e7eb;font-size:14px}
+th{color:#555;font-weight:600}
+td.acoes{text-align:right;white-space:nowrap}
+.feita{text-decoration:line-through;color:#888}
+.linha{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.linha input{flex:1;min-width:130px}
+#aviso{padding:10px 14px;border-radius:5px;margin-bottom:16px;display:none;font-size:14px}
+#aviso.ok{display:block;background:#dff0d8;color:#2d5a27}
+#aviso.erro{display:block;background:#f8d7da;color:#842029}
+#login{max-width:340px;margin:60px auto}
+#login input{width:100%;margin-bottom:10px}
+.escondido{display:none}
+.vazio{color:#777;padding:10px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>Gestão de tarefas</h1>
+  <div id="quem" class="escondido">
+    <span id="nome"></span>
+    <button class="claro" onclick="sair()">Terminar sessão</button>
+  </div>
+</header>
+
+<main>
+  <!-- Mensagens de sucesso (verde) e de erro (vermelho) -->
+  <div id="aviso"></div>
+
+  <!-- Ecrã de login -->
+  <section id="login" class="cartao">
+    <h2>Entrar</h2>
+    <input id="lu" placeholder="Utilizador" autocomplete="username">
+    <input id="lp" type="password" placeholder="Palavra-passe" autocomplete="current-password">
+    <button onclick="entrar()" style="width:100%">Entrar</button>
+  </section>
+
+  <!-- Ecrã principal (só aparece depois do login) -->
+  <section id="app" class="escondido">
+    <div class="cartao">
+      <h2 id="tituloTarefas">Tarefas</h2>
+      <table>
+        <thead>
+          <tr><th>Tarefa</th><th id="colCriador" class="escondido">Criador</th><th>Estado</th><th></th></tr>
+        </thead>
+        <tbody id="corpoTarefas"></tbody>
+      </table>
+      <p id="vazioTarefas" class="vazio escondido">Ainda não há tarefas.</p>
+      <div class="linha">
+        <input id="novaTarefa" placeholder="Nova tarefa..." maxlength="100">
+        <button onclick="criarTarefa()">Adicionar</button>
+      </div>
+    </div>
+
+    <!-- Só o administrador vê esta secção: listar (GET) e criar (POST) utilizadores -->
+    <div id="admin" class="cartao escondido">
+      <h2>Utilizadores</h2>
+      <table>
+        <thead><tr><th>Nome</th><th>Tipo</th></tr></thead>
+        <tbody id="corpoUtilizadores"></tbody>
+      </table>
+      <div class="linha">
+        <input id="nu" placeholder="Nome de utilizador">
+        <input id="np" type="password" placeholder="Palavra-passe (mín. 6)">
+        <select id="nr">
+          <option value="UTILIZADOR">Utilizador</option>
+          <option value="ADMIN">Administrador</option>
+        </select>
+        <button onclick="criarUtilizador()">Criar</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// Endereço base da API. É relativo, por isso funciona em qualquer porta.
+const BASE = '/tarefas/api';
+
+// Quem tem sessão iniciada: {id, username, papel}. null = ninguém.
+let eu = null;
+
+// Atalho para document.getElementById.
+const $ = id => document.getElementById(id);
+
+// Mostra uma mensagem no topo durante uns segundos. tipo: 'ok' ou 'erro'.
+function aviso(msg, tipo) {
+  const a = $('aviso');
+  a.textContent = msg;
+  a.className = tipo || 'ok';
+  clearTimeout(aviso.t);
+  aviso.t = setTimeout(() => { a.className = ''; }, 4500);
+}
+
+// Cria um elemento HTML com texto e classe. Usa textContent (e não innerHTML)
+// para que um título com "<" ou "&" nunca seja interpretado como HTML.
+function el(tag, texto, cls) {
+  const e = document.createElement(tag);
+  if (texto != null) e.textContent = texto;
+  if (cls) e.className = cls;
+  return e;
+}
+
+// Cria um botão com texto, classe de estilo e ação.
+function botao(texto, cls, fn) {
+  const b = el('button', texto, cls);
+  b.onclick = fn;
+  return b;
+}
+
+// Guarda quem entrou, para a página recarregada não pedir login outra vez.
+// O try/catch é necessário porque o armazenamento pode estar bloqueado.
+function guardar() {
+  try {
+    if (eu) sessionStorage.setItem('eu', JSON.stringify(eu));
+    else sessionStorage.removeItem('eu');
+  } catch (e) {}
+}
+
+// Faz um pedido à API e devolve o JSON da resposta.
+//   metodo:  'GET', 'POST', 'PUT' ou 'DELETE'
+//   caminho: por exemplo '/tarefas/3'
+//   dados:   objeto com os campos do formulário (POST e PUT)
+// Se o servidor responder com erro, lança uma exceção com a mensagem dele.
+// O browser guarda e reenvia o cookie de sessão sozinho.
+async function api(metodo, caminho, dados) {
+  const opc = { method: metodo };
+  if (dados) opc.body = new URLSearchParams(dados);   // codifica como formulário
+  const r = await fetch(BASE + caminho, opc);
+
+  let corpo = null;
+  try { corpo = await r.json(); } catch (e) {}
+
+  // 401 = sem sessão (expirou ou o Tomcat foi reiniciado): volta ao login.
+  if (r.status === 401 && eu) {
+    eu = null; guardar(); mostrarLogin();
+    aviso('A sessão terminou. Entra outra vez.', 'erro');
+    throw new Error('sem sessao');
+  }
+  if (!r.ok) throw new Error((corpo && corpo.erro) || ('Erro ' + r.status));
+  return corpo;
+}
+
+// Mostra o ecrã de login e esconde o resto.
+function mostrarLogin() {
+  $('app').classList.add('escondido');
+  $('quem').classList.add('escondido');
+  $('login').classList.remove('escondido');
+}
+
+// Mostra o ecrã principal. A secção de utilizadores só aparece ao administrador.
+async function mostrarApp() {
+  $('login').classList.add('escondido');
+  $('app').classList.remove('escondido');
+  $('quem').classList.remove('escondido');
+  const admin = eu.papel === 'ADMIN';
+  $('nome').textContent = 'Olá, ' + eu.username + (admin ? ' (administrador)' : '');
+  $('admin').classList.toggle('escondido', !admin);
+  await carregarTudo();
+}
+
+// Pede ao servidor as tarefas e, se for administrador, os utilizadores.
+async function carregarTudo() {
+  await carregarTarefas();
+  if (eu && eu.papel === 'ADMIN') {
+    try { await carregarUtilizadores(); }
+    catch (e) {
+      if (e.message !== 'sem sessao') aviso(e.message, 'erro');
+    }
+  }
+}
+
+// POST /login
+async function entrar() {
+  try {
+    eu = await api('POST', '/login', { username: $('lu').value.trim(), password: $('lp').value });
+    $('lp').value = '';
+    guardar();
+    await mostrarApp();
+  } catch (e) {
+    if (e.message !== 'sem sessao') aviso(e.message, 'erro');
+  }
+}
+
+// POST /logout
+async function sair() {
+  try { await api('POST', '/logout', {}); } catch (e) {}
+  eu = null; guardar(); mostrarLogin();
+  aviso('Sessão terminada.');
+}
+
+// Executa uma operação, mostra a mensagem de sucesso e recarrega as listas.
+// Se falhar, mostra a mensagem de erro que o servidor enviou.
+async function acao(fn, msg) {
+  try {
+    await fn();
+    if (msg) aviso(msg);
+    await carregarTudo();
+  } catch (e) {
+    if (e.message !== 'sem sessao') aviso(e.message, 'erro');
+  }
+}
+
+// GET /tarefas  ->  desenha a tabela de tarefas
+async function carregarTarefas() {
+  const lista = await api('GET', '/tarefas');
+  const admin = eu.papel === 'ADMIN';
+  $('tituloTarefas').textContent = admin ? 'Todas as tarefas' : 'As minhas tarefas';
+  $('colCriador').classList.toggle('escondido', !admin);   // só o admin vê o criador
+  $('vazioTarefas').classList.toggle('escondido', lista.length > 0);
+
+  const t = $('corpoTarefas');
+  t.replaceChildren();   // limpa a tabela antes de a desenhar outra vez
+  for (const x of lista) {
+    const tr = el('tr');
+    tr.append(el('td', x.titulo, x.concluida ? 'feita' : ''));
+    if (admin) tr.append(el('td', x.criador));
+    tr.append(el('td', x.concluida ? 'Feita' : 'Por fazer'));
+
+    const ac = el('td', null, 'acoes');
+
+    // PUT /tarefas/{id}: concluir ou reabrir.
+    // O PUT substitui a tarefa, por isso enviamos o título E o estado.
+    ac.append(botao(x.concluida ? 'Reabrir' : 'Concluir', 'claro',
+      () => acao(() => api('PUT', '/tarefas/' + x.id,
+        { titulo: x.titulo, concluida: String(!x.concluida) }))));
+
+    // PUT /tarefas/{id}: editar o título.
+    ac.append(' ');
+    ac.append(botao('Editar', 'claro', () => {
+      const novo = prompt('Novo título da tarefa:', x.titulo);
+      if (novo !== null && novo.trim())
+        acao(() => api('PUT', '/tarefas/' + x.id,
+          { titulo: novo.trim(), concluida: String(x.concluida) }), 'Tarefa atualizada.');
+    }));
+
+    // DELETE /tarefas/{id}: só o administrador vê este botão.
+    if (admin) {
+      ac.append(' ');
+      ac.append(botao('Apagar', 'perigo', () => {
+        if (confirm('Apagar a tarefa "' + x.titulo + '"?'))
+          acao(() => api('DELETE', '/tarefas/' + x.id), 'Tarefa apagada.');
+      }));
+    }
+    tr.append(ac);
+    t.append(tr);
+  }
+}
+
+// POST /tarefas  ->  criar uma tarefa
+function criarTarefa() {
+  const titulo = $('novaTarefa').value.trim();
+  if (!titulo) { aviso('Escreve o título da tarefa.', 'erro'); return; }
+  acao(async () => {
+    await api('POST', '/tarefas', { titulo });
+    $('novaTarefa').value = '';
+  }, 'Tarefa criada.');
+}
+
+// GET /utilizadores  ->  desenha a tabela de utilizadores (só administrador)
+async function carregarUtilizadores() {
+  const lista = await api('GET', '/utilizadores');
+  const t = $('corpoUtilizadores');
+  t.replaceChildren();
+  for (const u of lista) {
+    const tr = el('tr');
+    tr.append(el('td', u.username));
+    tr.append(el('td', u.papel === 'ADMIN' ? 'Administrador' : 'Utilizador'));
+    t.append(tr);
+  }
+}
+
+// POST /utilizadores  ->  criar um utilizador (só administrador)
+function criarUtilizador() {
+  const username = $('nu').value.trim();
+  const password = $('np').value;
+  const papel = $('nr').value;
+  acao(async () => {
+    await api('POST', '/utilizadores', { username, password, papel });
+    $('nu').value = '';
+    $('np').value = '';
+  }, 'Utilizador criado.');
+}
+
+// A tecla Enter também submete o login e a nova tarefa.
+$('lp').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
+$('novaTarefa').addEventListener('keydown', e => { if (e.key === 'Enter') criarTarefa(); });
+
+// Ao abrir a página: se já havia login nesta sessão do browser, volta a mostrá-lo.
+(async () => {
+  try {
+    const s = sessionStorage.getItem('eu');
+    if (s) { eu = JSON.parse(s); await mostrarApp(); }
+  } catch (e) {
+    eu = null; mostrarLogin();
+  }
+})();
+</script>
+</body>
+</html>

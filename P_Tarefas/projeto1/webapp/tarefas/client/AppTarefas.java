@@ -194,13 +194,13 @@ public class AppTarefas extends Application {
         tabela.setPlaceholder(new Label("AINDA NÃO EXISTE TAREFAS CRIADAS."));  // texto quando está vazia
         tabela.setPrefHeight(240);
         tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
-        tabela.getColumns().add(coluna("TAREFA", t -> String.valueOf(t.get("TITULO"))));
+        tabela.getColumns().add(coluna("TAREFA", t -> String.valueOf(t.get("titulo"))));
         if (admin) {
             // Só o administrador vê quem é o CRIADOR de cada tarefa.
-            tabela.getColumns().add(coluna("CRIADOR", t -> String.valueOf(t.get("CRIADOR"))));
+            tabela.getColumns().add(coluna("CRIADOR", t -> String.valueOf(t.get("criador"))));
         }
         tabela.getColumns().add(coluna("ESTADO",
-                t -> Boolean.TRUE.equals(t.get("CONCLUÍDA")) ? "FEITA" : "POR FAZER"));
+                t -> Boolean.TRUE.equals(t.get("concluida")) ? "FEITA" : "POR FAZER"));
 
         // ----- PUT: concluir ou reabrir -----
         // O PUT substitui a tarefa inteira, por isso enviaSSE o título atual
@@ -212,8 +212,8 @@ public class AppTarefas extends Application {
                 mostrar(avisoPrincipal, "SELECIONA PRIMEIRO UMA TAREFA DA TABELA.", true);
                 return;
             }
-            boolean feita = Boolean.TRUE.equals(t.get("CONCLUÍDA"));
-            atualizarTarefa(t, String.valueOf(t.get("TITULO")), !feita, null);
+            boolean feita = Boolean.TRUE.equals(t.get("concluida"));
+            atualizarTarefa(t, String.valueOf(t.get("titulo")), !feita, null);
         });
 
         // ----- PUT: editar o título -----
@@ -235,7 +235,7 @@ public class AppTarefas extends Application {
                     .map(String::trim)
                     .filter(novo -> !novo.isEmpty())
                     .ifPresent(novo -> atualizarTarefa(t, novo,
-                            Boolean.TRUE.equals(t.get("CONCLUÍDA")), "TAREFA ATUALIZADA."));
+                            Boolean.TRUE.equals(t.get("concluida")), "TAREFA ATUALIZADA."));
         });
 
         HBox acoes = new HBox(8, alternar, editar);
@@ -251,7 +251,7 @@ public class AppTarefas extends Application {
                 }
                 int id = ((Number) t.get("id")).intValue();
                 // Pede confirmação; só se o utilizador disser Sim é que o DELETE é enviado.
-                confirmar("APAGAR A TAREFA \"" + t.get("TITULO") + "\"?", () ->
+                confirmar("APAGAR A TAREFA \"" + t.get("titulo") + "\"?", () ->
                         executar(() -> api.delete("/tarefas/" + id),
                                 r -> depoisDeAcao(r, "TAREFA APAGADA."), avisoPrincipal));
             });
@@ -271,7 +271,7 @@ public class AppTarefas extends Application {
                 mostrar(avisoPrincipal, "ESCREVE O TÍTULO DA TAREFA.", true);
                 return;
             }
-            executar(() -> api.post("/tarefas", Map.of("TITULO", texto)), r -> {
+            executar(() -> api.post("/tarefas", Map.of("titulo", texto)), r -> {
                 if (r.ok()) novaTarefa.clear();   // só limpa o campo se correu bem
                 depoisDeAcao(r, "TAREFA CRIADA.");
             }, avisoPrincipal);

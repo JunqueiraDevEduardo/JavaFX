@@ -16,3 +16,7 @@ CREATE TABLE tarefas (
     utilizador_id INT NOT NULL,
     FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE CASCADE
 );
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON gestao_de_tarefas_base_dados.* TO 'app_tarefas'@'localhost';
+FLUSH PRIVILEGES;
+SELECT Db, Select_priv, Insert_priv, Update_priv, Delete_priv FROM mysql.db WHERE User = 'app_tarefas';

@@ -16,10 +16,10 @@ import java.sql.SQLException;
 
 public class Db {
 
-    // Endereço da base de dados: esta máquina, porta 3306, base "tarefas_db".
+    // Endereço da base de dados: esta máquina, porta 3306, base "gestao_de_tarefas_base_dados".
     // useUnicode e characterEncoding garantem que os acentos são guardados bem.
     private static final String URL =
-            "jdbc:mysql://localhost:3306/tarefas_db?useUnicode=true&characterEncoding=UTF-8";
+            "jdbc:mysql://localhost:3306/gestao_de_tarefas_base_dados?useUnicode=true&characterEncoding=UTF-8";
 
     // Utilizador criado só para a aplicação, com privilégios mínimos
     // (SELECT, INSERT, UPDATE, DELETE nesta base de dados e mais nada).
@@ -41,3 +41,4 @@ public class Db {
         return DriverManager.getConnection(URL, USER, PASS);
     }
 }
+
