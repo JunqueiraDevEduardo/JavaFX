@@ -4,7 +4,7 @@
 \label{Chapter5} 		% For referencing the chapter elsewhere,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\noindent Este capítulo encerra o relatório técnico-científico, identificando as limitações do trabalho desenvolvido  e o desenvolvimento futuro a realizar no trabalho nº2 da \ac{uc} de \ac{rinte}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -12,12 +12,24 @@
 \section{Sumário dos Resultados}
 \label{sec:Ch5.1}
 
+\noindent O trabalho desenvolvido cumpriu o objetivo principal definido no Capítulo~\ref{Chapter1}: estudar e implementar a tecnologia \textit{JavaFX Framework} de suporte ao desenvolvimento de aplicações distribuídas, através da aplicação \textit{Gestão de Tarefas}. Esta aplicação demonstrou, numa arquitetura de três camadas, a integração de um cliente gráfico \textit{JavaFX} com um \textit{back-end} \textit{Tomcat} e uma base de dados \textit{MySQL}, comunicando por \ac{http}/\ac{json} e \ac{jdbc}, respetivamente, conforme descrito no Capítulo~\ref{Chapter3}.
+
+
 
 \section{Limitações}
 \label{sec:Ch5.2}
 
+\noindent O curto período de desenvolvimento de cinco semanas, conforme o cronograma da Tabela~\ref{tab:cronograma}, foi o principal que impediu de melhorar este trabalho e o seu conteúdo.
+
 \section{Desenvolvimento Futuro}
 \label{sec:Ch5.3}
 
+
+\noindent Como desenvolvimento futuro, a explorar no âmbito do trabalho nº2 da \ac{uc} de \ac{rinte}, identificam-se as seguintes linhas de evolução:
+
+\begin{itemize}
+	\item aprofundar a segurança da comunicação entre o cliente e o \textit{back-end}, nomeadamente através de \textit{tokens} de autenticação com tempo de vida limitado, em complemento ao mecanismo de autenticação atual;
+	\item estender o modelo de dados apresentado na Secção~\ref{sec:Ch3.3}, de forma a suportar categorias de tarefas, prioridades e histórico de alterações;
+\end{itemize}
 
 

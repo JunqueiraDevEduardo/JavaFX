@@ -5,376 +5,74 @@
 \label{Chapter2}	%For referencing the chapter elsewhere, use \ref{Chapter2} 
 
 
-O projeto que será realizado de gestão de tarefas, pretende demonstrar a tecnologia numa arquitetura de 3 camadas.
+\noindent O projeto que será realizado de gestão de tarefas, pretende demonstrar a tecnologia numa arquitetura distribuída de três camadas. Neste capítulo é apresentada a definição do problema, os requisitos funcionais e técnicos da solução.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Section :Definição
-\begin{comment}
-A opção pelo \LaTeX{} para elaborar a dissertação favorece o aspeto gráfico do documento final, mas um documento visualmente bonito não substitui uma escrita cuidada e com uma apresentação de ideias estruturada. O presente capitulo é dedicado a apresentar o \textit{template} e alguns aspetos de como inserir citações, figuras, tabelas, equações e outros elementos cuja formatação deverá ser consistente ao longo da dissertação.
-
-O \textit{template} \LaTeX{} para dissertações do \ac{meec} foi desenvolvido por Vitor Cunha, baseado no \textit{template} Masters/Doctoral Thesis disponível em \url{www.LaTeXTemplates.com}. Sugestões e comentários podem ser enviados para \verb|vrc@isep.ipp.pt|. No entanto salienta-se que, \underline{o \textit{template} é fornecido sem suporte} e que é da inteira responsabilidade do utilizador qualquer alteração ao código e/ou ficheiros fornecidos.
-\end{comment}
-\begin{comment}
-The comment environment is used to easily comment large sections of LateX code. The comment environment is used to easily comment large sections of LateX code. The comment environment is used to easily comment large sections of LateX code. The comment environment is used to easily comment large sections of LateX code. The comment environment is used to easily comment large sections of LateX code.
-\end{comment}
-
 
 \section{Definição}
 \label{sec:Ch2.1}
 
-\begin{comment}
-O \LaTeX{} é uma poderosa ferramenta para produção de documentos. Ao contrário dos comuns processadores de texto como o Microsoft Word ou o LibreOffice Writer, o \LaTeX{} não é um programa \ac{wys}. Em vez disso, um documento escrito para \LaTeX{} é na verdade um simples ficheiro de texto sem qualquer tipo de formatação. Qualquer formato que se pretenda no documento final é definido através de comandos específicos que o \LaTeX{} interpreta aquando da compilação do documento. Por exemplo, para colocar uma palavra em itálico, no ficheiro de código escreve-se \verb|\textit{palavra}| para obter \textit{palavra} no documento final. Isso significa que o \LaTeX{} é uma linguagem \emph{markup}, à semelhança do \ac{html}. Desta forma o autor pode centrar-se na tarefa essencial da escrita, sem ter que se preocupar com formatações, paginação e outros arranjos visuais do documento em preparação. O \LaTeX{} é amplamente utilizado no meio académico para a elaboração e publicação de documentos científicos em várias áreas, incluindo matemática, estatística, engenharia, física, economia, entre muitas outras. Tem também um importante papel na preparação e publicação de livros.
+\noindent A gestão de tarefas, este projeto, no contexto adacémico é um exemplo criado com o intuido de explicar a tecnologia em estudo. ~O problema surge assim em dois campos distintos:
+\begin {itemize}
+\item Validação de solução gráfica da tecnologia em estudo.
+\item Integração do servidor  \textit{Tomcat} para comunicar com a base de dados  \textit{MySQL} para o serviço remoto da aplicação distribuída.
+\end {itemize}
 
-Para quem está a começar com o \LaTeX{}, para além dos inúmeros \textit{websites} com informação (e.g., \url{www.overleaf.com/learn}), recomenda-se o livro gratuito intitulado ``Uma não tão pequena introdução ao \LaTeX{}'' disponível em \url{ftp.eq.uc.pt/software/TeX/info/lshort/portuguese/pt-lshort.pdf}. Este livro está também disponível em vários idiomas em \url{www.ctan.org/tex-archive/info/lshort/}.
-\end{comment}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent A solução proposta tem como intuito, validar os conceitos lecionados na \ac{uc} de \ac{rinte}, nomeadamente a comunicação entre um cliente e um servidor através de um serviço \textit{web} baseado no protocolo \ac{http} de três camadas.
+
 
 \section{Requisitos}
-\begin{comment}
-O \textit{template} encontra-se disponível e pronto a ser usado no Moodle e na \href{https://www.overleaf.com/latex/templates/isep-meec-msc-thesis-slash-dissertation-latex-template/zdyypsqypqnm}{\textit{Overleaf Templates Gallery}}. Independentemente de optar por desenvolver a sua dissertação no Overleaf ou localmente no seu computador pessoal, é indispensável a familiarização com a estrutura de diretórios e ficheiros fornecidos com o \textit{template}.
-\end{comment}
+\label{sec:Ch2.2}
+
+\noindent Os requisitos da aplicação \textit{Gestão de Tarefas} dividem-se em requisitos funcionais, que descrevem o comportamento esperado do sistema do ponto de vista dos seus utilizadores, e requisitos técnicos, que definem as regras não funcionais que a solução deve respeitar.
 
 \subsection{Funcionais}
-\begin{comment}
-Os nomes dos diretórios são, geralmente, auto explicativos:
+
+
+\noindent A aplicação distribuída têm dois tipos de atores, com níveis de permissão distintos:
 
 \begin{itemize}
-     \item \textbf{chapters} -- este diretório é onde deverá colocar os capítulos da dissertação, incluindo os anexos. Cada capítulo (e anexo) deve ter o seu próprio ficheiro \file{.tex} e, embora não haja nenhuma regra rígida para o nome e número de capítulos, terá que existir sempre uma ``Introdução'' e as ``Conclusões''.
-
-     \item \textbf{figures} -- este diretório deverá conter todas as figuras usadas na dissertação. Recomenda-se o uso de um sistema de nomes de ficheiros que facilite a associação de um ficheiro a uma secção da dissertação.
-
-     \item \textbf{front} -- este diretório contém desde logo vários ficheiros destinados às secções iniciais pré-definidas da dissertação, designadas de \textit{frontmatter}. Poderá optar por não usar algumas destas secções caso não sejam relevantes para o seu documento.
+	\item \textbf{Administrador} -- responsável pela gestão de todas as tarefas do sistema e pela gestão dos utilizadores registados;
+	\item \textbf{Utilizador} -- responsável apenas pela gestão das tarefas que lhe foram atribuídas ou que criou.
 \end{itemize}
-\end{comment}
+
+\noindent A Tabela~\ref{tab:usecases} resume os principais casos de uso identificados, associando-os ao ator responsável e ao método \ac{http} que a interface \ac{rest} do \textit{back-end} segue neste projeto.
+
+\begin{table}[htb]
+	\caption{Casos de uso e correspondência com os métodos \ac{http} da \ac{api}.}
+	\label{tab:usecases}
+	\centering
+	\begin{tabular}{l l c}
+	\toprule
+	\tabhead{Ator} & \tabhead{Caso de Uso} & \tabhead{Método \ac{http}} \\
+	\midrule
+		Administrador \& Utilizador & Autenticar-se no sistema & \code{POST} \\
+		Administrador & Criar tarefa & \code{POST} \\
+		Administrador & Consultar todas as tarefas & \code{GET} \\
+		Administrador & Atualizar qualquer tarefa & \code{PUT} \\
+		Administrador & Eliminar qualquer tarefa & \code{DELETE} \\
+		Administrador & Criar utilizador & \code{POST} \\
+		Administrador & Consultar utilizadores & \code{GET} \\
+		Administrador & Eliminar utilizador & \code{DELETE} \\
+		\midrule
+		Utilizador & Criar tarefa própria & \code{POST} \\
+		Utilizador & Consultar as suas tarefas & \code{GET} \\
+		Utilizador & Atualizar tarefa própria & \code{PUT} \\
+	\bottomrule
+	\end{tabular}
+\end{table}
+
 \subsection{Técnicos}
-\begin{comment}
-Adicionalmente à estrutura de diretórios são também fornecidos vários ficheiros, a maioria deles em texto simples e cujo conteúdo pode ser visto com um editor de texto. Após a compilação com o \LaTeX{} vários ficheiros auxiliares são criados automaticamente, no entanto, regra geral, não necessita de os ter em consideração.
+
+\noindent Para além dos requisitos funcionais, a solução deve ainda respeitar os seguintes requisitos técnicos:
 
 \begin{itemize}
-\item \textbf{sampleRefs.bib} -- este é o ficheiro para o BibTeX que contém todas as referências que irá citar na dissertação. Este pode ser editado manualmente, mas existem programas disponíveis (e.g., \url{www.jabref.org}) para gerir referências que facilitam todo o processo. Pode mudar o nome do ficheiro desde que essa alteração também seja feita no ficheiro \file{main.tex}. As referências serão apresentadas no documento final com o estilo \textbf{ieeetr}. Considere os exemplos de vários tipos de referências fornecidos no ficheiro \file{sampleRefs.bib} para elaborar a sua própria lista.
-
-\item \textbf{DEEclass.cls} -- este ficheiro define a classe de documento DEEclass. É veementemente desaconselhado a sua modificação.
-
-\item \textbf{preamble.tex} -- este ficheiro deverá ser usado para adicionar \glspl{pack}, configurações e macros, específicos do seu documento. Desta forma evita-se que o preâmbulo do ficheiro principal \file{main.tex} fique demasiado extenso. 
-
-\item \textbf{main.tex} -- este é o ficheiro mais importante para a definição do seu documento. O código deste ficheiro define a estrutura e contém as instruções que levam o \LaTeX{} a gerar o PDF final. Tenha em consideração os comentários apresentados no próprio ficheiro por forma a saber o que faz cada linha/secção de código e de como o \textit{template} pode ser adaptado ao seu caso. É este ficheiro que deverá editar para dar como iniciada a elaboração da sua dissertação. Parabéns por ter decidido usar o \LaTeX{}!
+	\item \textbf{Autenticação e autorização} -- o acesso à \ac{api} deve ser condicionado à autenticação do utilizador, devendo o \textit{back-end} validar, em cada pedido, se o ator autenticado possui permissões para a operação solicitada;
+	\item \textbf{Portabilidade} -- o cliente gráfico, por ser desenvolvido em \textit{JavaFX}, deve poder ser executado em diferentes sistemas operativos sem alterações ao código;
 \end{itemize}
-\end{comment}
+
+\noindent Estes requisitos técnicos serão posteriormente retomados no Capítulo~\ref{Chapter4}, onde são avaliados através de testes de desempenho e usabilidade.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Sumário}
 
-\begin{comment}
-Para começar o seu documento, a primeira coisa a fazer é preencher as suas informações e escolher algumas opções no ficheiro \file{main.tex}. Depois de abrir este ficheiro, localize a secção identificada como ``MAIN SETTINGS'' (linha 17). Nesta secção deverá escolher o seu curso, das quatro opções:
-
-\begin{itemize}
-\item MEECAS (\acs{meec} Automação e Sistemas)
-\item MEECSA (\acs{meec} Sistemas Autónomos)
-\item MEECPI (\acs{meec} Sistemas e Planeamento Industrial)
-\item MEECTE (\acs{meec} Telecomunicações)
-\end{itemize}
-
-\noindent e a língua principal do documento, das duas opções: 
-\begin{itemize}
-\item portuguese 
-\item english
-\end{itemize}
-
-Ao escolher português como o idioma principal, é automaticamente usado como 2º o inglês. O oposto acontece se escolher inglês como idioma principal do documento. 
-
-Para prosseguir com a personalização localize a secção ``DISSERTATION INFORMATION'' (linha 28). Após preencher os campos desta secção com os dados:
-
-\begin{itemize}
-\item título do trabalho,
-\item identificação do candidato (nome, nº mecanográfico e \textit{email}),
-\item identificação do orientador do \ac{isep} (nome e \textit{email}),
-\item se aplicável, identificação do coorientador do \ac{isep} (nome e \textit{email}),
-\item se aplicável, identificação da empresa onde decorreu o estágio (nome) e do orientador do \ac{isep} (nome e \textit{email}), 
-\end{itemize}
-
-\noindent pode compilar o seu documento. Todas as informações introduzidas devem estar agora visíveis (nas folhas de capa) no PDF gerado.
-
-O ficheiro \file{main.tex} serve também para definir a estrutura e os conteúdos da dissertação. Tenha em consideração os comentários que pode ler ao longo do ficheiro para saber onde colocar, e.g., novos capítulos ou ocultar secções que não pretenda usar no seu documento (e.g., ``Dedicatória''). De forma resumida na secção ``FRONTMATTER'' (linha 53):
-
-\begin{itemize}
-\item A linha \verb|\include{front/1_dedicatory}| refere-se à secção ``Dedicatória''. Se pretende escrever uma dedicatória edite o ficheiro \path{/front/1_dedicatory.tex}. Caso contrário basta comentar a linha para que o conteúdo do ficheiro não seja considerado.
-\item A linha \verb|\include{front/2_acknowledgements}| refere-se à secção ``Agradecimentos'' e para a editar aceda ao ficheiro \path{/front/2_acknowledgements.tex}.
-\item A linha \verb|\include{front/3_abstract}| refere-se às secções ``Resumo'' e ``Abstract'', e o seu conteúdo é alterado no ficheiro \path{/front/3_abstract.tex}. Note que terá sempre que escrever esta secção em dois idiomas, leia atentamente as instruções contidas no ficheiro. É nesta secção onde também são introduzidas as palavras-chave associadas ao seu trabalho.
-\item A linha \verb|\include{front/4_frontmatterlists}| refere-se às secções ``Lista de Figuras'', ``Lista de Tabelas'', ``Listagens'', ``Glossário'', ``Lista de Acrónimos'' e ``Lista de Símbolos''. Deverá editar o conteúdo do ficheiro \path{/front/4_frontmatterlists.tex} para selecionar (comentando ou não as respetivas linhas) que secções deverão fazer parte do seu documento.
-\end{itemize}
-
-Qualquer uma das linhas pode ser comentada caso não queira usar a respetiva secção, a DEEclass trata de todos os aspetos de paginação e formatação do documento final. Para adicionar conteúdos às listas de termos, acrónimos e símbolos, localize a secção ``USER DEFINED LISTS'' (linha 43).
-
-\begin{itemize}
-\item A linha \verb|\input{front/0_glossary}| refere-se às secções ``Glossário''. Edite o ficheiro \path{/front/0_glossary.tex} para elaborar o dicionário da sua dissertação.
-\item A linha \verb|\input{front/0_acronyms}| refere-se à secção ``Lista de Acrónimos''. Edite o ficheiro \path{/front/5_listofacronyms.tex} para elaborar a sua lista de acrónimos.
-\item No mesmo sentido, a linha \verb|\input{front/0_symbols}| refere-se à secção ``Lista de Símbolos'' associada ao ficheiro \path{/front/6_listofsymbols.tex}.
-\end{itemize}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Formatos e Regras}
-
-Uma das coisas mais importantes (e mais difíceis) de manter num documento longo como uma dissertação é a consistência. Assim, usar algumas convenções torna o trabalho mais fácil para si e para o(s) orientador(es). Use o código fornecido neste ficheiro como base para a introdução das suas figuras, tabelas e restantes elementos. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Glossário, acrónimos e símbolos}
-
-Para ajudar o candidato a gerir as listas de termos específicos (\gls{gloss}), acrónimos e símbolos, o \textit{template} faz uso do \textit{package} \verb|glossaries|. Este permite, por exemplo, a ordenação alfabética das listas mencionadas e também que os acrónimos sejam descritos pelo menos uma vez no texto. As listas de termos, acrónimos e símbolos são definidas nos ficheiros mencionados na Subsecção~\ref{subsec:Ch2.2.3}. Tenha em consideração a informação presente nos comentários e os exemplos fornecidos, e de forma adicional na documentação do \gls{pack} disponível no endereço \url{ctan.org/pkg/glossaries} ou em \url{en.wikibooks.org/wiki/LaTeX/Glossary}.
-
-No documento, para introduzir os termos definidos no glossário use o comando \verb|\gls{<tag>}|, onde \verb|<tag>| se refere ao identificador do termo definido no ficheiro \verb|0_glossary.tex|. O \textit{package} \verb|glossaries| disponibiliza comandos adicionais que permitem introduzir variações do termo originalmente definido, para tal consulte a documentação.
-
-Para introduzir acrónimos ao longo do texto, o uso mais comum será através do comando \verb|\ac{<tag>}|, onde \verb|<tag>| se refere ao identificador do acrónimo definido no ficheiro \verb|0_acronyms.tex|. A primeira vez que o comando for usado é introduzida a versão completa (e.g., \ac{api}), e nas seguintes apenas será apresentado o acrónimo (e.g., \ac{api}). A Tabela~\ref{tab:acros} resume os principais comandos a ter em consideração. 
-
-\begin{table}[htb]
-	\caption{Principais comandos para introduzir acrónimos.}
-	\label{tab:acros}
-	\centering
-	\begin{tabular}{l l l}
-	\toprule
-	\tabhead{Comando} & \tabhead{} & \tabhead{Resultado} \\
-	\midrule
-		\verb|\ac{usb}| & primeiro uso & \ac{usb}\\
-		\verb|\ac{usb}| & repetição do comando & \ac{usb}\\
-		\verb|\acl{usb}| & força nome completo & \acl{usb}\\
-		\verb|\acs{usb}| & força acrónimo & \acs{usb}\\
-		\verb|\acf{usb}| & força versão completa & \acf{usb}\\
-	\bottomrule
-	\end{tabular}
-\end{table}
-
-Adicionalmente, para que um termo ou acrónimo seja apresentado na respetiva lista do documento final, terá que os usar pelo menos uma vez ao longo do texto. O mesmo não se aplica aos símbolos definidos em \verb|front/0_symbols.tex|.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Referências}
-
-O BibTeX é usado para formatar as referências bibliográficas e inserir citações como esta \cite{W3C05} através do comando \verb|\cite{<Bibtexkey>}|. As opções adotadas para a DEEclass fazem com que as citações no texto sejam apresentadas como números entre parênteses rectos. Citações múltiplas são separadas por vírgulas (e.g., \cite{Lipsum08, Li00, Candy92}). Na secção correspondente, as referências são ordenadas pela ordem de citação. 
-
-Considere que as citações \cite{Motorola96} devem ser colocadas antes dos sinais de pontuação \cite{Jain87}, caso haja, como uma vírgula ou um ponto final \cite{Delorme95}. O mesmo se aplica a notas de rodapé\footnote{Como esta nota de rodapé, aqui em baixo.}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Listas}
-
-Listas não numeradas são produzidas pelo ambiente \code{itemize}. Cada entrada da lista deve ser precedida pela sequência de controlo \code{\textbackslash item}. Por outro lado, as listas ordenadas são geradas pelo ambiente \code{enumerate} e cada entrada também deve ser precedida de \code{\textbackslash item}, que irá gerar automaticamente o rótulo dessa entrada. Os dois ambientes podem ser usados de forma encadeada.
-
-\begin{enumerate}
-   \item Primeiro nível lista ordenada
-   \item Primeiro nível lista ordenada
-   \begin{itemize}
-     \item Segundo nível lista não ordenada
-     \begin{itemize}
-       \item Terceiro nível lista não ordenada
-     \end{itemize}      
-     \item Segundo nível lista não ordenada
-     \begin{enumerate}
-       \item Terceiro nível lista ordenada
-       \item Terceiro nível lista ordenada
-     \end{enumerate}    
-   \end{itemize}
-   \item Primeiro nível lista ordenada   
-\end{enumerate} 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Figuras}
-
-É desejável que a sua dissertação inclua figuras em quantidade e qualidade por forma a ilustrar as ideias que pretende transmitir. Todos os ficheiros de figuras devem ser colocados no diretório \path{/figures}. Para inserir as figuras no seu documento deve, regra geral, usar o código:
-
-\begin{verbatim}
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[scale=0.8]{cap2_fig1.eps}
-	\caption{Legenda com citação \cite{Lipsum08}.}
-	\label{fig:exemplo1}
-\end{figure}
-\end{verbatim}
-
-Este código produz a Figura~\ref{fig:exemplo1}. As figuras podem ser redimensionadas de uma forma absoluta através da opção \code{scale}, ou de forma relativa, e.g., à largura da área de texto da forma: \path{\includegraphics[width=0.5\textwidth]{cap2_fig1.eps}}. Se necessário pode também recorrer a sub-figuras (ver código deste ficheiro), como demonstrado pela Figura~\ref{fig:exemplo2} que contém as sub-figuras~\ref{fig:subfigA} e~\ref{fig:subfigB}.
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[scale=0.8]{cap2_fig1.eps}
-	\caption{Legenda com citação \cite{Lipsum08}.}
-	\label{fig:exemplo1}
-\end{figure}
-
-\begin{figure}[htbp]
-  \centering
-  \subcaptionbox{Uma sub-figura\label{fig:subfigA}}{\includegraphics[width=0.45\linewidth]{cap2_fig1.eps}}
-%  \hfill
-  \subcaptionbox{\label{fig:subfigB}}{\includegraphics[width=0.45\linewidth]{cap2_fig1.eps}}
-  \caption[Uma figura com duas sub-figuras.]{Uma figura com duas sub-figuras: (a) com legenda e (b) sem legenda.}
-  \label{fig:exemplo2}
-\end{figure}
-
-Tenha em consideração que nem sempre as figuras irão aparecer no ponto onde escreveu o código, dado que o posicionamento depende do espaço disponível na página. Posicionar as figuras é trabalho para o \LaTeX{} e por isso só se deve preocupar em fazer as imagens, de preferência em formato vetorial (e.g., EPS, PDF). Neste sentido existem várias ferramentas, sendo o Inkscape (\url{inkscape.org}) uma excelente alternativa. O \LaTeX{} por omissão aceita os formatos PDF, JPG e PNG. As figuras devem ser sempre referidas no texto e devem também ter sempre uma legenda, definida através do comando \verb|\caption{}|. Não esquecer que quando uma figura é obtida de uma referência bibliográfica, i.e., não é da sua autoria, esse facto deve ser mencionado (ver legenda da Figura~\ref{fig:exemplo1}).
-
-Este \textit{template} disponibiliza o comando adicional \verb|\inlinegraphics| que permite inserir figuras na linha de texto. Este é um exemplo \inlinegraphics{Inlinefigureexample.png}, verifique como usar o comando no código deste ficheiro. Por vezes uma figura necessita de ser apresentada em \textit{landscape}, onde a Figura~\ref{fig:exemplo3} é um exemplo desta forma de apresentação.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Tabelas}
-
-As tabelas são uma forma importante de apresentação de informação. A Tabela~\ref{tab:basictable} ilustra a aplicação das principais diretrizes a ter em consideração na construção de tabelas:
-
-\begin{enumerate}
-   \item Não usar linhas verticais.
-   \item A legenda é colocada antes da tabela.
-   \item Usar as macros \verb|\toprule|, \verb|\midrule| e \verb|\bottomrule| para criar as linhas horizontais, respetivamente, do topo, meio e fundo da tabela.
-\end{enumerate} 
-
-\begin{landscape}
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[scale=1.8]{cap2_fig1.eps}
-		\caption{Uma figura em \textit{landscape}.}
-		\label{fig:exemplo3}
-	\end{figure}
-\end{landscape}
-
-Considere o seguinte código usado para criar a Tabela~\ref{tab:basictable}:
-
-{\small
-\begin{verbatim}
-\begin{table}
-\caption{Exemplo de uma tabela simples em \LaTeX{}.}
-\label{tab:basictable}
-\centering
-	\begin{tabular}{l c c}
-	\toprule
-	\tabhead{Coluna 1} & \tabhead{Coluna 2} & \tabhead{Coluna 3} \\
-	\midrule
-	Linha 1 & 0.2 & 0.8\\
-	Linha 2 & 0.17 & 0.7\\
-	Linha 3 & 0.24 & 0.75\\
-	Linha 4 & 0.68 & 0.3\\
-	\bottomrule
-\end{tabular}
-\end{table}
-\end{verbatim}
-}
-
-\begin{table}[htb]
-	\caption{Exemplo de uma tabela simples em \LaTeX{}.}
-	\label{tab:basictable}
-	\centering
-	\begin{tabular}{l c c}
-	\toprule
-	\tabhead{Coluna 1} & \tabhead{Coluna 2} & \tabhead{Coluna 3} \\
-	\midrule
-		Linha 1 & 0.2 & 0.8\\
-		Linha 2 & 0.17 & 0.7\\
-		Linha 3 & 0.24 & 0.75\\
-		Linha 4 & 0.68 & 0.3\\
-	\bottomrule
-	\end{tabular}
-\end{table}
-
-Para fazer referência a tabelas use o comando \verb|\ref{<label>}|, onde  \verb|<label>| se refere ao rótulo definido por \verb|\label{<label>}|. Regra geral coloque sempre um til, i.e., \verb|Tabela~\ref{<label>}|, para introduzir um \textit{unbreakable space}. Ambientes e comandos adicionais podem ser empregues para construir tabelas mais complexas/específicas (desde que mantidas as regras gerais definidas anteriormente): \verb|tabularx|, \verb|longtable|, \verb|\multicolumn|, \verb|\multirow|, entre outros. Em caso de dificuldade na criação do código para as tabelas, sugere-se o \textit{website} \url{www.tablesgenerator.com}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Listagens de código}
-
-Para apresentar excertos de código-fonte na sua dissertação este \textit{template} usa o \gls{pack} \verb|listings|. Tenha em consideração que por omissão as listagens estão definidas como flutuantes para que o \LaTeX{} as possa posicionar da melhor forma. Esta definição implica também que uma listagem não será dividida por uma nova página, pelo que é recomendado que utilize excertos que não excedam uma página. Existem muitas opções que podem ser especificadas neste ambiente, para mais informações consultar \url{en.wikibooks.org/wiki/LaTeX/Source_Code_Listings}.
-
-O comando \verb|\printlistoflistings|, invocado no ficheiro \path{4_frontmatterlists.tex}, cria a secção ``Listagens'' na sua dissertação. Assim, se não usar listagens na sua dissertação deverá comentar este comando. A Listagem~\ref{lst:examplo1} e a Listagem~\ref{lst:examplo2} são dois exemplos de listagens de código. Analise o conteúdo deste ficheiro para mais detalhes.
-
-\begin{center}
-\begin{minipage}{0.7\linewidth}
-\begin{lstlisting}[language=C, caption=Exemplo simples de C., label=lst:examplo1]
-#include<stdio.h>
-main()
-{
-	printf("Hello World");
-}
-\end{lstlisting}
-\end{minipage}
-\end{center}
-
-Uma listagem de código também pode ser inserida diretamente de um ficheiro através do comando \verb|\lstinputlisting[<settings>]{<pathtofile>/file.c}|.
-
-\begin{minipage}{0.9\linewidth}
-\begin{lstlisting}[language=Python, caption=Exemplo longo em Python., label=lst:examplo2]
-import numpy as np
-    
-def incmatrix(genl1,genl2):
-    m = len(genl1)
-    n = len(genl2)
-    M = None #to become the incidence matrix
-    VT = np.zeros((n*m,1), int)  #dummy variable
-    
-    #compute the bitwise xor matrix
-    M1 = bitxormatrix(genl1)
-    M2 = np.triu(bitxormatrix(genl2),1) 
-
-    for i in range(m-1):
-        for j in range(i+1, m):
-            [r,c] = np.where(M2 == M1[i,j])
-            for k in range(len(r)):
-                VT[(i)*n + r[k]] = 1;
-                VT[(i)*n + c[k]] = 1;
-                VT[(j)*n + r[k]] = 1;
-                VT[(j)*n + c[k]] = 1;
-                
-                if M is None:
-                    M = np.copy(VT)
-                else:
-                    M = np.concatenate((M, VT), 1)               
-                VT = np.zeros((n*m,1), int)  
-    return M
-\end{lstlisting}
-\end{minipage}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Equações}
-
-Se a sua tese fizer uso de conteúdo matemático, então a opção de usar o \LaTeX{} foi a mais acertada. O livro ``Uma não tão pequena introdução ao \LaTeX{}'' tem informação suficiente para a maioria dos casos de composição matemática, mas para conteúdos mais completos recomenda-se o guia \url{tug.ctan.org/info/short-math-guide/short-math-guide.pdf}. Adicionalmente, uma extensa lista de símbolos pode ser consultada em \url{tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}.
-
-O \LaTeX{} permite a escrita de equações \textit{inline} como $E = mc^{2}$ ou em modo \textit{display}, sendo neste caso  automaticamente numeradas:
-
-\begin{verbatim}
-\begin{equation}
-	E = mc^{2} .
-	\label{eqn:einstein}
-\end{equation}
-\end{verbatim}
-
-\noindent que produz a famosa equação:
-
-\begin{equation}
-E = mc^{2} .
-\label{eqn:einstein}
-\end{equation}
-
-Alternativamente, se pretender que (\ref{eqn:einstein}) não seja numerada pode usar o código \verb|$$ E = mc^{2} $$| que produz:
-$$ E = mc^{2} .$$
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Teoremas}
-
-Teoremas, lemas e corolários devem ser numerados por ordem crescente. O \textit{template} fornece estes ambientes adaptados ao idioma selecionado para o documento em \file{main.tex}. Através do comando \verb|\newtheorem| pode criar ambientes adicionais do mesmo tipo (no ficheiro \file{preamble.tex}). 
-
-\begin{theorem}
-Isto é um exemplo da aplicação do ambiente \code{theorem}. Os teoremas são numerados por ordem crescente, iniciando em 1.
-\end{theorem}
-
-\begin{corollary}
-Isto é um exemplo da aplicação do ambiente \code{corollary}. Os corolários são numerados por ordem crescente, iniciando em 1.
-\end{corollary}
-
-\begin{lemma}
-Isto é um exemplo da aplicação do ambiente \code{lemma}. Os lemas são numerados por ordem crescente, iniciando em 1.
-\end{lemma}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearpage
-\section{Notas Adicionais}
-
-\textbf{Boa sorte!}
-
-\end{comment}
+\noindent Neste capítulo definiu-se o problema, na necessidade de uma aplicação distribuída de gestão de tarefas que integra a tecnologia \textit{JavaFX Framework}, e identifica-se os requisitos funcionais e técnicos que ilustram o desenho do problema.

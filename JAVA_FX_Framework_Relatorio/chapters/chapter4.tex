@@ -4,6 +4,7 @@
 \label{Chapter4} 		% For referencing the chapter elsewhere, 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent Este capítulo descreve o processo de validação da aplicação \textit{Gestão de Tarefas}, estruturado em três vertentes complementares: testes funcionais, avaliação de desempenho e avaliação de usabilidade.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -11,20 +12,29 @@
 \section{Funcionais}
 \label{sec:Ch4.1}
 
-
-\section{Desempenho}
-\label{sec:Ch4.2}
-% (volume de dados e latência por caso de uso e impacto da carga no caso maior latência)
-\section{Usabilidade}
-\label{sec:Ch4.3}
+\noindent A validação funcional teve por base os casos de uso identificados na Tabela~\ref{tab:usecases}. A Tabela~\ref{tab:testesfuncionais} resume os principais casos de teste executados.
 
 
-\section{Discussão }
-\label{sec:Ch4.4}
-
-
-\section{Sumário}
-\label{sec:Ch4.5}
+\begin{table}[htb]
+	\caption{Resumo dos casos de teste funcionais.}
+	\label{tab:testesfuncionais}
+	\centering
+	\small
+	\begin{tabular}{l p{5.6cm} l}
+	\toprule
+	\tabhead{Ator} & \tabhead{Cenário} & \tabhead{Resultado} \\
+	\midrule
+		Utilizador & Autenticação com credenciais válidas & [a preencher] \\
+		Utilizador & Criação de uma tarefa própria & [a preencher] \\
+		Utilizador & Consulta das tarefas próprias & [a preencher] \\
+		Utilizador & Tentativa de \code{DELETE} sobre uma tarefa & [a preencher] \\
+		Utilizador & Tentativa de acesso a tarefas de outro utilizador & [a preencher] \\
+		Administrador & Consulta de todas as tarefas do sistema & [a preencher] \\
+		Administrador & Criação e remoção de um utilizador & [a preencher] \\
+		Administrador & Eliminação de uma tarefa de outro utilizador & [a preencher] \\
+	\bottomrule
+	\end{tabular}
+\end{table}
 
 
 
