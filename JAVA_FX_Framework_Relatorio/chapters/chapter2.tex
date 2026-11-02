@@ -5,13 +5,13 @@
 \label{Chapter2}	%For referencing the chapter elsewhere, use \ref{Chapter2} 
 
 
-\noindent O projeto que será realizado de gestão de tarefas, pretende demonstrar a tecnologia numa arquitetura distribuída de três camadas. Neste capítulo é apresentada a definição do problema, os requisitos funcionais e técnicos da solução.
+\noindent O projeto  de gestão de tarefas pretende demonstrar a tecnologia numa arquitetura distribuída de três camadas. Neste capítulo é apresentada a definição do problema, os requisitos funcionais e técnicos da solução.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Section :Definição
 
 \section{Definição}
 \label{sec:Ch2.1}
 
-\noindent A gestão de tarefas, este projeto, no contexto adacémico é um exemplo criado com o intuido de explicar a tecnologia em estudo. ~O problema surge assim em dois campos distintos:
+\noindent No contexto académico, o projeto de gestão de tarefas  é um exemplo criado com o intuito de explicar a tecnologia em estudo. ~O problema surge assim em dois campos distintos:
 \begin {itemize}
 \item Validação de solução gráfica da tecnologia em estudo.
 \item Integração do servidor  \textit{Tomcat} para comunicar com a base de dados  \textit{MySQL} para o serviço remoto da aplicação distribuída.
@@ -23,12 +23,12 @@
 \section{Requisitos}
 \label{sec:Ch2.2}
 
-\noindent Os requisitos da aplicação \textit{Gestão de Tarefas} dividem-se em requisitos funcionais, que descrevem o comportamento esperado do sistema do ponto de vista dos seus utilizadores, e requisitos técnicos, que definem as regras não funcionais que a solução deve respeitar.
+\noindent Os requisitos da aplicação Gestão de Tarefas dividem-se em requisitos funcionais, que descrevem o comportamento esperado do sistema do ponto de vista dos seus utilizadores, e requisitos técnicos, que definem as regras não funcionais que a solução deve respeitar.
 
 \subsection{Funcionais}
 
 
-\noindent A aplicação distribuída têm dois tipos de atores, com níveis de permissão distintos:
+\noindent A aplicação distribuída tem dois tipos de atores, com níveis de permissão distintos:
 
 \begin{itemize}
 	\item \textbf{Administrador} -- responsável pela gestão de todas as tarefas do sistema e pela gestão dos utilizadores registados;
@@ -69,10 +69,8 @@
 	\item \textbf{Autenticação e autorização} -- o acesso à \ac{api} deve ser condicionado à autenticação do utilizador, devendo o \textit{back-end} validar, em cada pedido, se o ator autenticado possui permissões para a operação solicitada;
 	\item \textbf{Portabilidade} -- o cliente gráfico, por ser desenvolvido em \textit{JavaFX}, deve poder ser executado em diferentes sistemas operativos sem alterações ao código;
 \end{itemize}
-
-\noindent Estes requisitos técnicos serão posteriormente retomados no Capítulo~\ref{Chapter4}, onde são avaliados através de testes de desempenho e usabilidade.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Sumário}
 
-\noindent Neste capítulo definiu-se o problema, na necessidade de uma aplicação distribuída de gestão de tarefas que integra a tecnologia \textit{JavaFX Framework}, e identifica-se os requisitos funcionais e técnicos que ilustram o desenho do problema.
+\noindent Neste capítulo definiu-se o problema, na necessidade de uma aplicação distribuída de gestão de tarefas que integra a tecnologia \textit{JavaFX}, e identificam-se os requisitos funcionais e técnicos que ilustram o desenho do problema.

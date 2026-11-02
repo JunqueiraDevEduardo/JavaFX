@@ -12,35 +12,36 @@
 
 \begin{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MAIN LANGUAGE ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-A \textit{framework JavaFX}, será estudada e implementada neste relatório técnico-científico, com a criação de uma aplicação distribuída esta tecnologia será apresentada.
+\noindent Este relatório técnico-científico, realizado no âmbito da \ac{uc} de \ac{rinte}, estuda e implementa a tecnologia \textit{JavaFX} como suporte ao desenvolvimento de aplicações distribuídas, através do desenvolvimento de uma aplicação de Gestão de Tarefas. 
 
+\noindent A solução segue uma arquitetura distribuída de três camadas: um cliente gráfico desenvolvido em \textit{JavaFX}, um servidor de aplicações \textit{Tomcat} que expõe uma \ac{api} \ac{rest}, e uma base de dados \textit{MySQL}, comunicando as camadas entre si por \ac{http}/\ac{json} e \ac{jdbc}. A aplicação contempla dois perfis de ator, Administrador e Utilizador, com permissões distintas sobre as tarefas e os utilizadores do sistema, impostas de forma centralizada pelo \textit{back-end}. 
 
+\noindent A aplicação permite a autenticação de utilizadores e distingue dois perfis de acesso: o administrador, responsável pela gestão de todas as tarefas e utilizadores do sistema, e o utilizador comum, que apenas pode consultar, criar e atualizar as tarefas que lhe estão associadas.  
 
-Aqui deverá ser apresentado o resumo de todo o trabalho efetuado. Esta secção não deverá exceder uma página.
-
-Deve contextualizar o problema que pretende resolver ou a hipótese que irá formular, procure evidenciar as vantagens e desvantagens (se as houver) da solução encontrada, como também a forma através da qual a solução/hipótese foi validada. Neste último ponto, deverá referir-se aos desenvolvimentos efetuados, e à forma como validou (conformidade) e avaliou (desempenho) a solução encontrada.
-
-A dissertação deve conter sempre duas versões do resumo: uma primeira no idioma do texto principal e a segunda num outro idioma. Este \textit{template} assume que os dois idiomas em consideração são sempre Português e Inglês, assim, a classe irá colocar os cabeçalhos respetivos de acordo com o idioma selecionado nas opções da classe no ficheiro \file{main.tex}. 
-
+\noindent Os resultados obtidos demonstram a viabilidade da utilização do \textit{JavaFX} no desenvolvimento de aplicações distribuídas com interface gráfica, comunicação cliente-servidor e persistência de dados.
 %----------------------------------------------------------------------------------------
 
 \vspace*{10mm} 
 \noindent
-\textbf{\keywordslabel}: \textit{JavaFX}, Lista, separada por vírgulas, de palavras, frases, ou acrónimos chave no âmbito do trabalho descrito neste texto. 
+\textbf{\keywordslabel}: \textit{JavaFX}, aplicações distribuídas, arquitetura de três camadas, \textit{Apache Tomcat}, \textit{MySQL}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%% END OF THE MAIN LANGUAGE ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{abstract}
 \begin{secondlangabstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECOND LANGUAGE ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The framework JavaFX, will be studied and implemented in this theoretical-cientific paper, with the creation of distributed aplication, this tecnology will be presented.
 
+This technical-scientific report, developed within the scope of the \ac{uc} \ac{rinte}, studies and implements the \textit{JavaFX} technology as support for the development of distributed applications, through the development of a Task Management application.
 
+The solution follows a three-tier distributed architecture: a graphical client developed in \textit{JavaFX}, a \textit{Tomcat} application server that exposes a \ac{rest} \ac{api}, and a \textit{MySQL} database, with the layers communicating with each other through \ac{http}/\ac{json} and \ac{jdbc}. The application includes two actor profiles, Administrator and User, with distinct permissions over the system's tasks and users, enforced centrally by the \textit{back-end}. 
+
+The application enables user authentication and distinguishes two access profiles: the administrator, responsible for managing all tasks and users in the system, and the standard user, who can only view, create, and update the tasks assigned to them.
+
+The results obtained demonstrate the feasibility of using \textit{JavaFX} in the development of distributed applications with a graphical interface, client-server communication, and data persistence.
 %----------------------------------------------------------------------------------------
 
 \vspace*{10mm} 
 \noindent
-\textbf{\keywordslabel}: JavaFX,
-
+\textbf{\keywordslabel}: \textit{JavaFX}, distributed applications, three-tier architecture, \textit{Apache Tomcat}, \textit{MySQL}.
 %%%%%%%%%%%%%%%%%%%%%%%%%% END OF THE SECOND LANGUAGE ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{secondlangabstract}
 

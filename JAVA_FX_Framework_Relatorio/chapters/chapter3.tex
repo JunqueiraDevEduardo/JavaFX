@@ -9,23 +9,23 @@
 \section{Ferramentas e Tecnologias}
 \label{sec:Ch3.1}
 
-\noindent A escolha desta tecnologia é referenciada também pela literatura, que evidência vantagens relativamente a alternativas mais antigas, como o \textit{AWT} e o \textit{Swing}, nomeadamente ao nível da separação entre a definição visual, feita em \textit{FXML}, e a lógica da aplicação~\cite{Pereira2020}. A construção dos ecrãs recorre ao \textit{Scene Builder}, uma ferramenta visual de edição de \textit{FXML}  documentada~\cite{Vivien2010}.
+\noindent A escolha desta tecnologia é referenciada também pela literatura, que evidencia vantagens relativamente a alternativas mais antigas, como o AWT e o Swing, nomeadamente ao nível da separação entre a definição visual, feita em FXML, e a lógica da aplicação~\cite{Pereira2020}. A construção dos ecrãs recorre ao \textit{Scene Builder}, uma ferramenta visual de edição de FXML  documentada~\cite{Vivien2010}.
 
 
-\noindent Do lado do servidor, é utilizado o \textit{Apache Tomcat}, responsável por expor uma \ac{api} \ac{rest} que serve de interface entre o cliente gráfico e a base de dados. A comunicação entre as duas camadas é efetuada sobre \ac{http}, recorrendo ao formato \ac{json} para a troca de mensagens, por ser um formato leve e nativamente suportado pelas bibliotecas \textit{Java}.
+\noindent Do lado do servidor, é utilizado o \textit{Apache Tomcat}, responsável por expor uma \ac{api} \ac{rest} que serve de interface entre o cliente gráfico e a base de dados. A comunicação entre as duas camadas é efetuada sobre \ac{http}, recorrendo ao formato \ac{json} para a troca de mensagens, por ser um formato leve e nativamente suportado pelas bibliotecas \textit{java}.
 
-\noindent A persistência dos dados em \ac{sgbd} \textit{MySQL}, acedida a partir do \textit{back-end} através de \ac{jdbc}, a interface padrão do \textit{Java} para ligação a bases de dados relacionais. O desenvolvimento é realizado sobre o \ac{jdk}, com recurso a um \ac{ide} para a edição e depuração do código, e ao \textit{Git}, por forma a documentar a evolução do projeto ao longo das cinco semanas definidas no planeamento (Tabela~\ref{tab:cronograma}).
+\noindent A persistência dos dados é efetuado no \ac{sgbd} \textit{MySQL}, acedido a partir do \textit{back-end} através de \ac{jdbc}, a interface padrão do \textit{java} para ligação a bases de dados relacionais. O desenvolvimento é realizado sobre o \ac{jdk}, com recurso a um \ac{ide} para a edição e depuração do código, e ao \textit{Git}, por forma a documentar a evolução do projeto ao longo das cinco semanas definidas no planeamento (Tabela~\ref{tab:cronograma}).
 
 Para justificar a origem das bibliotecas gráficas utilizadas e assegurar a reprodutibilidade do ambiente de desenvolvimento, foi documentado o processo de obtenção do respetivo SDK através do distribuidor oficial, conforme ilustra a Figura~\ref{fig:instalacao_javafx}.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{InstalacaoJavaFX.png}
-    \caption{Página de download do JavaFX SDK disponibilizado pela Gluon.}
+    \caption{Página de \textit{download} do \textit{JavaFX SDK} disponibilizado pela Gluon.}
     \label{fig:instalacao_javafx}
 \end{figure}
 
-Tal como referido anteriormente, a desassociação do JavaFX do JDK base a partir da versão 11 exige a configuração explícita de argumentos de execução e do caminho dos módulos. A ausência do parâmetro \texttt{--module-path} resulta no erro de compilação e execução evidenciado na Figura~\ref{fig:erro_modular_javafx}.
+Tal como referido anteriormente, a desassociação do \textit{JavaFX} do \textit{JDK} base a partir da versão 11 exige a configuração explícita de argumentos de execução e do caminho dos módulos. A ausência do parâmetro \textit{--module-path} resulta no erro de compilação e execução evidenciado na Figura~\ref{fig:erro_modular_javafx}.
 
 \begin{figure}[htbp]
     \centering
@@ -39,7 +39,7 @@ Após a correta parametrização das variáveis de ambiente e bibliotecas modula
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.90\textwidth]{HelloJavaFxTeste1.png}
-    \caption{Janela de teste inicial ("Olá, JavaFX!") validando o ambiente gráfico.}
+    \caption{Janela de teste inicial ("Olá, \textit{JavaFX!}") validando o ambiente gráfico.}
     \label{fig:hello_javafx}
 \end{figure}
 
@@ -62,37 +62,37 @@ Após a correta parametrização das variáveis de ambiente e bibliotecas modula
 \section{Modelo de Dados}
 \label{sec:Ch3.3}
 
-\noindent O modelo de dados da aplicação assenta em duas entidades principais: \textit{Utilizador} e \textit{Tarefa}, relacionadas entre si numa associação de um para muitos, já que um utilizador pode ser responsável por várias tarefas, mas cada tarefa pertence apenas a um utilizador. A Figura~\ref{fig:ermodel} apresenta o modelo relacional simplificado destas duas entidades.
+\noindent O modelo de dados da aplicação assenta em duas entidades principais: utilizador e tarefa, relacionadas entre si numa associação de um para muitos, já que um utilizador pode ser responsável por várias tarefas, mas cada tarefa pertence apenas a um utilizador. A Figura~\ref{fig:ermodel} apresenta o modelo relacional simplificado destas duas entidades.
 
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.55]{figures/ModeloER.png}
-  \caption{Modelo relacional simplificado das entidades \textit{Utilizador} e \textit{Tarefa}.}
+  \caption{Modelo relacional simplificado das entidades utilizador e tarefa.}
 	\label{fig:ermodel}
 \end{figure}
 
-\noindent Conforme ilustrado na Figura~\ref{fig:ermodel}, a entidade Utilizador armazena, entre outros campos, o atributo \code{perfil}, que distingue os registos do tipo Administrador dos registos do tipo \textit{Utilizador} comum, sendo este o campo consultado pelo \textit{back-end} para aplicar as regras de autorização descritas na Secção~\ref{sec:Ch3.2}. A entidade Tarefa inclui a chave estrangeira \code{idUtilizador}, que a associa ao seu responsável, bem como o campo \code{estado}, utilizado para representar o progresso da tarefa (por exemplo, por fazer, a fazer ou  concluída).
+\noindent Conforme ilustrado na Figura~\ref{fig:ermodel}, a entidade utilizador armazena, entre outros campos, o atributo \code{papel}, que distingue os registos do tipo administrador dos registos do tipo utilizador comum, sendo este o campo consultado pelo \textit{back-end} para aplicar as regras de autorização descritas na Secção~\ref{sec:Ch3.2}. A entidade tarefa inclui a chave estrangeira \code{utilizadorid}, que a associa ao seu responsável, bem como o campo \code{estado}, utilizado para representar o progresso da tarefa (por exemplo, por fazer, a fazer ou  concluída).
 
 \section{Front-end}
 \label{sec:Ch3.4}
 
-\noindent O cliente gráfico  tem a estrutura correspondendo a cada uma a um ecrã da aplicação,  cada ecrã é associada a uma classe \textit{controller} \textit{JavaFX}, As respostas recebidas em \ac{json} são convertidas para objetos \textit{Java} antes de serem apresentadas.
+\noindent O cliente gráfico  tem uma estrutura em que cada componente corresponde a um ecrã da aplicação,  cada ecrã está associado a uma classe \textit{controller} \textit{JavaFX}. As respostas recebidas em \ac{json} são convertidas para objetos \textit{Java} antes de serem apresentadas.
 
 \begin{itemize}
 	\item \textbf{Autenticação:}~ecrã inicial onde o utilizador introduz as suas credenciais, submetidas ao \textit{endpoint} de autenticação do \textit{back-end};
-	\item \textbf{Lista de Tarefas:}~apresenta, numa \code{TableView}, as tarefas do Utilizador autenticado ou, no caso do Administrador, a totalidade das tarefas registadas no sistema;
-	\item \textbf{Formulário de Tarefa:}~permite a criação e a edição de uma tarefa, sendo reutilizado tanto para o Administrador como para o Utilizador;
+	\item \textbf{Lista de Tarefas:}~apresenta, numa \code{TableView}, as tarefas do Utilizador autenticado ou, no caso do administrador, a totalidade das tarefas registadas no sistema;
+	\item \textbf{Formulário de Tarefa:}~permite a criação e a edição de uma tarefa, sendo reutilizado tanto para o administrador como para o utilizador;
 	\item \textbf{Gestão de Utilizadores:}~ecrã exclusivo do Administrador, que lista os utilizadores registados e permite a sua criação e remoção.
 \end{itemize}
 
-A interface gráfica foi desenhada para adaptar as funcionalidades disponíveis ao perfil de acesso autenticado. Na Figura~\ref{fig:admin_view} apresenta-se a vista do utilizador com perfil de Administrador, destacando o acesso concorrente à gestão de tarefas e ao controlo de contas de utilizadores.
+\noindent A interface gráfica foi desenhada para adaptar as funcionalidades disponíveis ao perfil de acesso autenticado. Na Figura~\ref{fig:admin_view} apresenta-se a vista do perfil de administrador, destacando o acesso concorrente à gestão de tarefas e ao controlo de contas de utilizadores.
 
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.90\textwidth]{Gestao_tarefas-admin_view.png}
-    \caption{Interface principal do sistema na perspetiva do perfil Administrador.}
+    \caption{Interface principal do sistema na perspetiva do perfil administrador.}
     \label{fig:admin_view}
 \end{figure}
 
@@ -108,21 +108,21 @@ Para além do desenho estético, a interface de autenticação contempla o trata
     \label{fig:login_validacao}
 \end{figure}
 
-A aplicação foi disponibilizada através de um servidor de aplicações Apache Tomcat, permitindo o acesso via navegador web. Na Figura~\ref{fig:web_admin_tarefas} é apresentada a interface Web acedida por uma conta de administrador, evidenciando as funcionalidades de gestão centralizada de todas as tarefas da plataforma, bem como o módulo de gestão e criação de novos utilizadores com diferentes níveis de privilégios.
+A aplicação foi disponibilizada através de um servidor de aplicações \textit{Apache Tomcat}, permitindo o acesso via navegador \textit{web}. Na Figura~\ref{fig:web_admin_tarefas} é apresentada a interface \textit{Web} acedida por uma conta de administrador, evidenciando as funcionalidades de gestão centralizada de todas as tarefas da plataforma, bem como o módulo de gestão e criação de novos utilizadores com diferentes níveis de privilégios.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.90\textwidth]{tarefaslocalhost.png}
-    \caption{Interface Web da aplicação em execução no Apache Tomcat (vista Administrador).}
+    \caption{Interface Web da aplicação em execução no \textit{Apache Tomcat} (vista administrador).}
     \label{fig:web_admin_tarefas}
 \end{figure}
 
-Em conformidade com as permissões atribuídas a cada conta, a interface Web adapta os elementos visíveis de acordo com o papel do utilizador autenticado. A Figura~\ref{fig:web_user_tarefas} ilustra a perspetiva de um utilizador comum (\texttt{eduardo}), demonstrando a restrição de acesso: este visualiza apenas as tarefas sob a sua responsabilidade e não dispõe de privilégios para apagar tarefas nem para aceder ao módulo de gestão de utilizadores.
+Em conformidade com as permissões atribuídas a cada conta, a interface \textit{web} adapta os elementos visíveis de acordo com o papel do utilizador autenticado. A Figura~\ref{fig:web_user_tarefas} ilustra a perspetiva de um utilizador comum (\texttt{eduardo}), demonstrando a restrição de acesso: este visualiza apenas as tarefas sob a sua responsabilidade e não dispõe de privilégios para apagar tarefas nem para aceder ao módulo de gestão de utilizadores.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.50\textwidth]{eduardolocalhost.png}
-    \caption{Interface Web no Apache Tomcat na perspetiva de um utilizador comum.}
+    \caption{Interface \textit{Web} no \textit{Apache Tomcat} na perspetiva de um utilizador comum.}
     \label{fig:web_user_tarefas}
 \end{figure}
 
@@ -158,7 +158,7 @@ Em conformidade com as permissões atribuídas a cada conta, a interface Web ada
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.90\textwidth]{basedados_criar_utilizadores_privilegios.png}
-    \caption{Configuração de privilégios de acesso e registos da tabela de utilizadores no MySQL Workbench.}
+    \caption{Configuração de privilégios de acesso e registos da tabela de utilizadores no \textit{MySQL Workbench}.}
     \label{fig:db_utilizadores_privilegios}
 \end{figure}
 
@@ -166,12 +166,12 @@ De forma a assegurar a modularidade e a clara separação de responsabilidades n
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{tree_backend.png}
-    \caption{Estrutura de pastas da aplicação evidenciando o módulo de suporte ao servidor Tomcat.}
+    \caption{Estrutura de pastas da aplicação evidenciando o módulo de suporte ao servidor \textit{Tomcat}.}
     \label{fig:arvore_backend}
 \end{figure}
 
 \section{Sumário}
 \label{sec:Ch3.6}
 
-\noindent Neste capítulo descreveu-se a solução implementada para a aplicação \textit{Gestão de Tarefas}, assente numa arquitetura distribuída de três camadas que recorre ao \textit{JavaFX} na apresentação, ao \textit{Tomcat} na lógica de servidor e ao \textit{MySQL} na persistência de base de dados. As  camadas assim comunicam entre si por \ac{http}/\ac{json} e \ac{jdbc}, respetivamente.
+\noindent Neste capítulo descreveu-se a solução implementada para a aplicação \textit{Gestão de Tarefas}, assente numa arquitetura distribuída de três camadas que recorre ao \textit{JavaFX} na apresentação, ao \textit{Tomcat} na lógica de servidor e ao \textit{MySQL} na persistência de base de dados. As  camadas comunicam entre si através de  \ac{http}/\ac{json} e \ac{jdbc}.
 
